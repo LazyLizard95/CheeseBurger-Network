@@ -1,4 +1,4 @@
-const Thoughts = require('../models/thoughts');
+const Thoughts = require('../models/thought');
 //get thoughts
 export const getThoughts = async (req, res) => {
     try{
