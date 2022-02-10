@@ -9,6 +9,16 @@ export const getUsers = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+//get single user
+export const getSingleUser = async (req, res) => {
+    try{
+        const users = await User.findById();
+        console.log(users);
+        res.status(200).json(users);
+    } catch(error){
+        res.status(404).json({ message: error.message });
+    }
+}
 //create users
 export const createUser = async (req, res) => {
     const user = req.body;
@@ -23,26 +33,23 @@ export const createUser = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
-//get friends
-export const getFriends = async (req, res) => {
+//remove friend
+export const removeFriends = async (req, res) => {
     try{
-        const friends = await friends.find();
-        console.log(friends);
-        res.status(200).json(friends);
+        const updateFriend = await User.findOneAndUpdate({_id: req.params.userId}, {$pull:{friends: req.params.friendId}})
+        res.status(200).json(updateFriend);
+    
     } catch(error){
         res.status(404).json({ message: error.message });
     }
 }
 //create friends
 export const createFriends = async (req, res) => {
-    const friends = req.body;
-
-    const newFriends = new friends(friends);
-
     try{
-        await newFriends.save();
+        const updateFriend = await User.findOneAndUpdate({_id: req.params.userId}, {$push:{friends: req.params.friendId}})
+        res.status(200).json(updateFriend);
 
-        res.status(201).json(newFriends);
+        
     } catch(error){
         res.status(409).json({ message: error.message });
     }

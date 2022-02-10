@@ -23,26 +23,21 @@ export const createThoughts = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
-//get reaction
-export const getReaction = async (req, res) => {
+//remove reaction
+export const removeReaction = async (req, res) => {
     try{
-        const reaction = await reaction.find();
-        console.log(reaction);
-        res.status(200).json(reaction);
+        const updateReaction = await Thoughts.findOneAndUpdate({_id: req.params.thoughtId}, {$pull:{reactions:{reactionId: req.params.reactionId} }})
+        res.status(200).json(updateReaction);
     } catch(error){
         res.status(404).json({ message: error.message });
     }
 }
 //create reaction
 export const createReaction = async (req, res) => {
-    const reaction = req.body;
-
-    const newReaction = new reaction(reaction);
-
     try{
-        await newReaction.save();
-
-        res.status(201).json(newReaction);
+        const updateReaction = await User.findOneAndUpdate({_id: req.params.userId}, {$push:{reactions: req.body}})
+        res.status(200).json(updateReaction);
+    
     } catch(error){
         res.status(409).json({ message: error.message });
     }
