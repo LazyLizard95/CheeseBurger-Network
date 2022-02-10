@@ -1,6 +1,6 @@
 const Thoughts = require('../models/thoughts');
 //get thoughts
-export const getThoughtss = async (req, res) => {
+export const getThoughts = async (req, res) => {
     try{
         const thoughts = await Thoughts.find();
         console.log(thoughts);

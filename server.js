@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/cheeseburgers',
 
 mongoose.set('debug', true);
 
-// app.use(require('./routes'));
+app.use(require('./routes'));
 
 mongoose.connection.once('open', () => {app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);

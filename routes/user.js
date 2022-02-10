@@ -1,10 +1,13 @@
 import express from 'express';
 
-import { getUser, createUser} from '../controllers/posts.js';
+import { getUsers, createUser, getFriends, createFriends} from '../controllers/user.js';
 
 const router = express.Router();
 
-router.get('/', getUser);
+router.get('/', getUsers);
 router.post('/', createUser);
+
+router.get('/', getFriends);
+router.post('/', createFriends);
 
 export default router;
